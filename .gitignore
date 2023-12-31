@@ -1,0 +1,19 @@
+*.pyc 
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+.idea
+
+# media
+/media
+
+# misc
+.vscode
+.trunk
+
+
+/ecommerce/settings.py
+ecommerce/settings.py
+./ecommerce/settings.py
+!settings.py
+r.txt

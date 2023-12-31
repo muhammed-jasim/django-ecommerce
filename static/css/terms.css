@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .terms-heading {
+    color: rgb(41, 41, 112);
+    margin-bottom: 20px;
+  }
+  .heading-div-terms {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .content-div-terms {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(29, 29, 55);
+  }
+  .main-div-terms{
+      padding:2%;
+  }
