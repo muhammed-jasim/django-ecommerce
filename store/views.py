@@ -83,4 +83,45 @@ def cart(request):
     total=0
     for c in cart_items:
         total=total+((c.quantity)*(c.item.product_rate))
-    return render(request,'cart.html')
+    items_count = cart_items.count()
+    return render(request,'cart.html',{'cart_items':cart_items,'sub_total':sub_total,'total':total,'items_count':items_count})
+
+def add_to_cart (request,i):
+    current_user = request.user
+    item = Product.objects.get(id=i)
+    qty = 1
+    price = item.product_rate
+    
+    try:
+        user_cart=cart_Model.objects.get(user=current_user)
+        new_cart_item=cart_item(item=item,quantity=qty,price=price)
+        new_cart_item.save()
+        user_cart.items.add(new_cart_item)
+        user_cart.save()
+    except:
+        return redirect('login')
+    
+    return redirect('cart')
+
+def remove_cart_item(request,item_id):
+    current_user = request.user
+    user_cart = cart_Model.objects.get(user=current_user)
+    item = cart_item.objects.get(id=item_id)
+    user_cart.items.remove(item)
+    user_cart.save()
+    return redirect('cart')
+
+def increase_item(request, item_id):
+    item = cart_item.objects.get(id=item_id)
+    item.quantity+=1
+    item.price = item.quantity*item.item.product_rate
+    item.save()
+    return redirect('cart')
+
+def decrease_item(request, item_id):
+    item = cart_item.objects.get(id=item_id)
+    if item.quantity > 1 :
+        item.quantity-=1
+        item.price = item.quantity*item.item.product_rate
+        item.save()
+    return redirect('cart')

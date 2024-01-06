@@ -261,9 +261,9 @@
             <div class="box">
               <div class="img-box">
                 <img src="{{ popular.popular_product_image.url }}" alt="">
-                <a href="#" class="add_cart_btn ">
-                  <span class="update-cart" data-product="{{ popular.id }}" data-action="add">
-                    Add To Cart
+                <a href="{% url "product"   %}" class="add_cart_btn ">
+                  <span class="update-cart">
+                    Show More
                 </span>
                 </a>
               </div>

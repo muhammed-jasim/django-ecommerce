@@ -10,6 +10,12 @@ body{
 .title{
     margin-bottom: 5vh;
 }
+.close{
+    cursor: pointer;
+}
+.cart_btn{
+    text-decoration: none;
+}
 .card{
     margin: auto;
     /* max-width: 950px; */
