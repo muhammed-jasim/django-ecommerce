@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Your Cart</title>
     <link rel="stylesheet" href="{% static 'css/cart.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
@@ -48,8 +48,9 @@
                     </div>
                     <form>
                         <p>SHIPPING</p>
-                        <select><option class="text-muted">Standard-Delivery - ₹ 40.00</option>
-                            <option class="text-muted">Free-Delivery - ₹ 0.00</option></select>
+                        <select><option class="text-muted">Free-Delivery - ₹ 0.00</option>
+                            <option class="text-muted">Standard-Delivery - ₹ 40.00</option>
+                            </select>
 
                         <br><br>
                         <p>GIVE CODE</p>
@@ -59,7 +60,11 @@
                         <div class="col">TOTAL PRICE</div>
                         <div class="col text-right">₹ {{ total }}</div>
                     </div>
-                    <button class="btn">CHECKOUT</button>
+                    {% if cart_items.count > 0 %}
+                        <a href="{% url 'CheckOut' %}"><button class="btn">CHECKOUT</button></a>
+                    {% else %}
+                        <p class="CheckOut_error">Your cart is empty. Add items to your cart before checking out.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>

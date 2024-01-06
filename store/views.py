@@ -125,3 +125,13 @@ def decrease_item(request, item_id):
         item.price = item.quantity*item.item.product_rate
         item.save()
     return redirect('cart')
+
+def Check_out(request):
+    current_user = request.user
+    try:
+        cart_instance = cart_Model.objects.get(user=current_user)
+        cart_items=cart_instance.items.all()
+        orderd_cart_items = cart_items.delete()
+        return render(request,'check_out.html')
+    except:
+        return render(request, 'cart.html', {'error_message': 'Cart not found for the current user.'})

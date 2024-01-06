@@ -177,3 +177,9 @@ a:hover{
     text-decoration: none !important;
     font-size: 20px;
 }
+.CheckOut_error{
+    color: red;
+    font-size: 13px;
+    text-align: center
+  }
+  

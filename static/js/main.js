@@ -100,8 +100,15 @@
     // updateCartDisplay(); 
 
 
+    // check out js
+    $("button").click(function () {
+        $(".check-icon").hide();
+        setTimeout(function () {
+          $(".check-icon").show();
+        }, 10000);
+      });
 
-
+    // end check out js
 
     var updatebtns = document.getElementsByClassName('update-cart')
     var user = Request.username
