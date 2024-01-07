@@ -131,7 +131,7 @@ def Check_out(request):
     try:
         cart_instance = cart_Model.objects.get(user=current_user)
         cart_items=cart_instance.items.all()
-        orderd_cart_items = cart_items.delete()
-        return render(request,'check_out.html')
+        cart_items.delete()
+        return render(request,'check_out.html',{'cart_items':cart_items})
     except:
         return render(request, 'cart.html', {'error_message': 'Cart not found for the current user.'})
