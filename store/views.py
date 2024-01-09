@@ -75,8 +75,13 @@ def conditions(request):
 @login_required(login_url='login')
 def cart(request):
     current_user=request.user
-    crt=cart_Model.objects.get(user=current_user)
-    cart_items=crt.items.all()
+    try :
+        crt=cart_Model.objects.get(user=current_user)
+        cart_items=crt.items.all()
+    except :
+        crt=cart_Model.objects.create(user=current_user)
+        cart_items=crt.items.all()
+        
     sub_total=0
     for s in cart_items:
         sub_total=(s.quantity)*(s.item.product_rate)
