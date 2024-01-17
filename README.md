@@ -13,4 +13,7 @@ COMMON
 * Dashboard
 * Buy products
 
+OTHER 
+* Fully Respnsive
+
 Demo : https://muhammedjasimk.pythonanywhere.com/
