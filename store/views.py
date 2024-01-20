@@ -146,23 +146,21 @@ def decrease_item(request, item_id):
 
 def Check_out(request):
     current_user = request.user
-    # try:
-    cart_instance = cart_Model.objects.get(user=current_user)
-    cart_items=cart_instance.items.all()
-    print(cart_items,'cart::::::::IIIITTTEMMSSS')
+    try:
+        cart_instance = cart_Model.objects.get(user=current_user)
+        cart_items=cart_instance.items.all()
+        print(cart_items,'cart::::::::IIIITTTEMMSSS')
+        whatsapp_message = "Hello, I would like to purchase the following items:\n\n\n"
+        for item in cart_items:
+            whatsapp_message += f"• Product : {item.item.product_name}\n Quantity : {item.quantity}\n URL : http://estote.pythonanywhere.com/product \n\n  Total Price : {item.price} \n\n\n\n Thank You For Your Order! You can Order More products Click http://estote.pythonanywhere.com/ "
 
-    whatsapp_message = "Hello, I would like to purchase the following item(s):\n\n"
-    for item in cart_items:
-        whatsapp_message += f"- Product: {item.item}\n  Quantity: {item.quantity}\n  Size: {item.price}\n  Image :{item.item.product_image}\n\n"
-
-    # Encode the message for the URL
-    encoded_message = quote(whatsapp_message)
-
-    # Construct the WhatsApp link with the encoded message
-    whatsapp_link = f"https://wa.me/+917510140803?text={encoded_message}"
-    print("Redirecting to:", whatsapp_link)
-    cart_items.delete()
-    return redirect(whatsapp_link)
+        # Encode the message for the URL
+        encoded_message = quote(whatsapp_message)
+        # Construct the WhatsApp link with the encoded message
+        whatsapp_link = f"https://wa.me/+917510140803?text={encoded_message}"
+        print("Redirecting to:", whatsapp_link)
+        cart_items.delete()
+        return redirect(whatsapp_link)
         # return render(request,'check_out.html',{'cart_items':cart_items,'whatsapp_link':whatsapp_link})
-    # except:
-        # return render(request, 'cart.html', {'error_message': 'Cart not found for the current user.'})
+    except:
+        return render(request, 'cart.html', {'error_message': 'Cart not found for the current user.'})

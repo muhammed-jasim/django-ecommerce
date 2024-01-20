@@ -23,7 +23,7 @@ class cart_item(models.Model):
     def subtotal(self):
         return self.quantity * self.price
     def __str__(self):
-        return f"Item : {self.item.product_name}, Quantity :{self.quantity}, Price : {self.price}, Image :{self.item.product_image}"
+        return f"Item : {self.item.product_name}, Quantity :{self.quantity}, Price : {self.price}, Image-Url :{self.item.product_image.url}"
     
 class cart_Model(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
