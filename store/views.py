@@ -159,7 +159,7 @@ def Check_out(request):
     encoded_message = quote(whatsapp_message)
 
     # Construct the WhatsApp link with the encoded message
-    whatsapp_link = f"https://wa.me/+918156832892?text={encoded_message}"
+    whatsapp_link = f"https://wa.me/+917510140803?text={encoded_message}"
     print("Redirecting to:", whatsapp_link)
     cart_items.delete()
     return redirect(whatsapp_link)
