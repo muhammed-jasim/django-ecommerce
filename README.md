@@ -16,4 +16,4 @@ COMMON
 OTHER 
 * Fully Respnsive
 
-Demo : https://muhammedjasimk.pythonanywhere.com/
+Demo : http://estote.pythonanywhere.com/
