@@ -1,3 +1,4 @@
+from urllib.parse import quote
 from django.shortcuts import render,redirect
 from django .http import HttpResponse
 from . models import *
@@ -85,6 +86,8 @@ def cart(request):
     sub_total=0
     for s in cart_items:
         sub_total=(s.quantity)*(s.item.product_rate)
+
+    print(sub_total,":::::::::SHH")
     total=0
     for c in cart_items:
         total=total+((c.quantity)*(c.item.product_rate))
@@ -131,12 +134,35 @@ def decrease_item(request, item_id):
         item.save()
     return redirect('cart')
 
+# def Check_out(request):
+#     current_user = request.user
+#     try:
+#         cart_instance = cart_Model.objects.get(user=current_user)
+#         cart_items=cart_instance.items.all()
+#         cart_items.delete()
+#         return render(request,'check_out.html',{'cart_items':cart_items})
+#     except:
+#         return render(request, 'cart.html', {'error_message': 'Cart not found for the current user.'})
+
 def Check_out(request):
     current_user = request.user
-    try:
-        cart_instance = cart_Model.objects.get(user=current_user)
-        cart_items=cart_instance.items.all()
-        cart_items.delete()
-        return render(request,'check_out.html',{'cart_items':cart_items})
-    except:
-        return render(request, 'cart.html', {'error_message': 'Cart not found for the current user.'})
+    # try:
+    cart_instance = cart_Model.objects.get(user=current_user)
+    cart_items=cart_instance.items.all()
+    print(cart_items,'cart::::::::IIIITTTEMMSSS')
+
+    whatsapp_message = "Hello, I would like to purchase the following item(s):\n\n"
+    for item in cart_items:
+        whatsapp_message += f"- Product: {item.item}\n  Quantity: {item.quantity}\n  Size: {item.price}\n  Image :{item.item.product_image}\n\n"
+
+    # Encode the message for the URL
+    encoded_message = quote(whatsapp_message)
+
+    # Construct the WhatsApp link with the encoded message
+    whatsapp_link = f"https://wa.me/+918156832892?text={encoded_message}"
+    print("Redirecting to:", whatsapp_link)
+    cart_items.delete()
+    return redirect(whatsapp_link)
+        # return render(request,'check_out.html',{'cart_items':cart_items,'whatsapp_link':whatsapp_link})
+    # except:
+        # return render(request, 'cart.html', {'error_message': 'Cart not found for the current user.'})
